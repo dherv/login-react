@@ -1,36 +1,14 @@
-import React, { FC } from "react";
-import { useField, Form, FormikProps, Formik } from "formik";
+import React from "react";
+import { Form, FormikProps, Formik } from "formik";
 import * as Yup from "yup";
 import LoginButton from "./LoginButton";
+import LoginInput from "./LoginInput";
 
 interface Values {
   firstName: string;
   lastName: string;
   email: string;
 }
-
-interface InputProps {
-  type: string;
-  name: string;
-}
-
-const Input: FC<{ label: string; name: string; type: string }> = ({
-  label,
-  ...props
-}) => {
-  const [field, meta] = useField(props);
-  return (
-    <>
-      <label>
-        {label}
-        <input {...field} {...props} />
-      </label>
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </>
-  );
-};
 
 const LoginForm = () => (
   <div>
@@ -61,9 +39,9 @@ const LoginForm = () => (
     >
       {(props: FormikProps<Values>) => (
         <Form>
-          <Input name="firstName" type="text" label="First Name" />
-          <Input name="lastName" type="text" label="Last Name" />
-          <Input name="email" type="email" label="Email" />
+          <LoginInput name="firstName" type="text" label="First Name" />
+          <LoginInput name="lastName" type="text" label="Last Name" />
+          <LoginInput name="email" type="email" label="Email" />
           <LoginButton />
         </Form>
       )}
