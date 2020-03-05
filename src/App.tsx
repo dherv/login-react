@@ -1,11 +1,11 @@
 import React from "react";
-import Login from "./pages/Login";
 import { GlobalStyle } from "./styled/GlobalStyle";
+import Authentication from "./pages/Authentication";
 
 const App = () => (
   <>
     <GlobalStyle />
-    <Login></Login>
+    <Authentication></Authentication>
   </>
 );
 
