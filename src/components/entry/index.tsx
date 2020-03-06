@@ -12,6 +12,8 @@ const Entry: FC<{ data: IEntryData }> = ({
 }) => {
   return (
     <Formik
+      key={uuidv1()}
+      enableReinitialize
       initialValues={initialValues}
       validationSchema={validation.get("LoginSchema")}
       onSubmit={(values, actions) => {
