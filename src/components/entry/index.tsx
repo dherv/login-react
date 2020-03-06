@@ -4,9 +4,12 @@ import EntryButton from "./EntryButton";
 import EntryInput from "./EntryInput";
 import { SC } from "./index.styled";
 import { validation } from "../../validation/validation";
-import { LoginValues, RegisterValues } from "../../interfaces/interfaces";
+import { IEntryData, IValues } from "../../interfaces/interfaces";
+import { v1 as uuidv1 } from "uuid";
 
-const Entry: FC<{ data: any }> = ({ data: { initialValues, components } }) => {
+const Entry: FC<{ data: IEntryData }> = ({
+  data: { initialValues, components }
+}) => {
   return (
     <Formik
       initialValues={initialValues}
@@ -18,13 +21,11 @@ const Entry: FC<{ data: any }> = ({ data: { initialValues, components } }) => {
         }, 1000);
       }}
     >
-      {(props: FormikProps<LoginValues | RegisterValues>) => (
+      {(props: FormikProps<IValues>) => (
         <SC.Form>
-          {components.map(
-            ({ name, label }: { name: string; label: string }) => (
-              <EntryInput key={name} name={name} type="text" label={label} />
-            )
-          )}
+          {components.map(({ name, label, type }) => (
+            <EntryInput key={name} name={name} type={type} label={label} />
+          ))}
           <EntryButton />
         </SC.Form>
       )}

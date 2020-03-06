@@ -5,7 +5,7 @@ import Authentication from "./pages/Authentication";
 const App = () => (
   <>
     <GlobalStyle />
-    <Authentication></Authentication>
+    <Authentication title="watchers" backgroundColor="#212121"></Authentication>
   </>
 );
 

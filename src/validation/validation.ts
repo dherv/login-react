@@ -26,7 +26,9 @@ export const validation = new Map([
         .required("Required"),
       email: Yup.string()
         .email("Invalid email address")
-        .required("Required")
+        .required("Required"),
+      password: Yup.string()
+      .required("Required")
     })
   ]
 ]);
