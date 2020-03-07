@@ -1,8 +1,7 @@
 export interface IValues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password?: string;
+  username: string;
+  password: string;
+  email?: string;
 }
 
 export interface IEntryData {

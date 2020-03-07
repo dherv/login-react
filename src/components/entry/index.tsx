@@ -7,15 +7,16 @@ import { validation } from "../../validation/validation";
 import { IEntryData, IValues } from "../../interfaces/interfaces";
 import { v1 as uuidv1 } from "uuid";
 
-const Entry: FC<{ data: IEntryData }> = ({
-  data: { initialValues, components }
+const Entry: FC<{ data: IEntryData; schema: string }> = ({
+  data: { initialValues, components },
+  schema
 }) => {
   return (
     <Formik
       key={uuidv1()}
       enableReinitialize
       initialValues={initialValues}
-      validationSchema={validation.get("LoginSchema")}
+      validationSchema={validation.get(schema)}
       onSubmit={(values, actions) => {
         setTimeout(() => {
           alert(JSON.stringify(values, null, 2));
