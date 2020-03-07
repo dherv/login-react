@@ -5,7 +5,11 @@ import Authentication from "./pages/Authentication";
 const App = () => (
   <>
     <GlobalStyle />
-    <Authentication title="App" backgroundColor="#212121"></Authentication>
+    <Authentication
+      title="App"
+      backgroundColor="#212121"
+      url="http://localhost:4000"
+    ></Authentication>
   </>
 );
 

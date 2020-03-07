@@ -27,10 +27,11 @@ const data: Map<string, IEntryData> = new Map([
   ]
 ]);
 
-const Authentication: FC<{ backgroundColor: string; title: string }> = ({
-  backgroundColor,
-  title
-}) => {
+const Authentication: FC<{
+  backgroundColor: string;
+  title: string;
+  url: string;
+}> = ({ backgroundColor, title, url }) => {
   const [state, setState] = useState<boolean>(true);
   return (
     <SCG.Main backgroundColor={backgroundColor}>
@@ -38,9 +39,17 @@ const Authentication: FC<{ backgroundColor: string; title: string }> = ({
         <SCG.Title>{title}</SCG.Title>
         <h4>{state ? "Sign In" : "Register"}</h4>
         {state ? (
-          <Entry data={data.get("Login")} schema="LoginSchema" />
+          <Entry
+            data={data.get("Login")}
+            validationSchema="LoginSchema"
+            url={url}
+          />
         ) : (
-          <Entry data={data.get("Register")} schema="RegisterSchema" />
+          <Entry
+            data={data.get("Register")}
+            validationSchema="RegisterSchema"
+            url={url}
+          />
         )}
         <button onClick={() => setState(!state)}>switch</button>
       </SCG.Container>

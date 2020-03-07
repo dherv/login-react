@@ -7,21 +7,31 @@ import { validation } from "../../validation/validation";
 import { IEntryData, IValues } from "../../interfaces/interfaces";
 import { v1 as uuidv1 } from "uuid";
 
-const Entry: FC<{ data: IEntryData; schema: string }> = ({
-  data: { initialValues, components },
-  schema
-}) => {
+const Entry: FC<{
+  data: IEntryData;
+  validationSchema: string;
+  url: string;
+}> = ({ data: { initialValues, components }, validationSchema, url }) => {
   return (
     <Formik
       key={uuidv1()}
       enableReinitialize
       initialValues={initialValues}
-      validationSchema={validation.get(schema)}
+      validationSchema={validation.get(validationSchema)}
       onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
-        }, 1000);
+        fetch(`${url}/auth/login`, {
+          method: "POST",
+          body: JSON.stringify({ ...values }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(response => response.json())
+          .then(({ access_token }) => {
+            localStorage.setItem("token", access_token);
+            actions.setSubmitting(false);
+          })
+          .catch(error => console.error(error));
       }}
     >
       {(props: FormikProps<IValues>) => (
