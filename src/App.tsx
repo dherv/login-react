@@ -1,6 +1,6 @@
 import React from "react";
-import { GlobalStyle } from "./styled/GlobalStyle";
-import Authentication from "./pages/Authentication";
+import { GlobalStyle } from "./authentication/styled/GlobalStyle";
+import Authentication from "./authentication";
 
 const App = () => (
   <>

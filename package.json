@@ -45,5 +45,12 @@
   "devDependencies": {
     "@types/styled-components": "^5.0.1",
     "styled-components": "^5.0.1"
+  },
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/react@1.0.14"
+    },
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "yarn"
   }
 }

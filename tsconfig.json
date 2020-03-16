@@ -16,6 +16,6 @@
     "jsx": "react",
     "strictNullChecks": false
   },
-  "include": ["src", "src/components/entry/index.tsx"]
+  "include": ["src", "src/authentication/entry/index.tsx"]
 }
 // add strictNullChecks to use new Map().get in Authentication page and remove 'undefined' error on knows keys
