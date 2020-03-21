@@ -8,7 +8,9 @@ const App = () => (
     <Authentication
       title="App"
       backgroundColor="#212121"
-      url="http://localhost:4000"
+      callback={() =>
+        console.info("callback from app to redirect after login should be here")
+      }
     ></Authentication>
   </>
 );

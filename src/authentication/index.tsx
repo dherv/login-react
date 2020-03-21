@@ -1,8 +1,9 @@
 import React, { useState, FC } from "react";
 import Entry from "./components/entry";
 import { SCG } from "./styled/GlobalComponents";
-import { IEntryData } from "./interfaces/interfaces";
+import { IEntryData, IValues } from "./interfaces/interfaces";
 import { GlobalStyle } from "./styled/GlobalStyle";
+import Api from "./api/Api";
 
 const data: Map<string, IEntryData> = new Map([
   [
@@ -12,7 +13,10 @@ const data: Map<string, IEntryData> = new Map([
       components: [
         { name: "username", label: "username", type: "text" },
         { name: "password", label: "password", type: "password" }
-      ]
+      ],
+      request(values: IValues): Promise<void> {
+        return Api.login(values);
+      }
     }
   ],
   [
@@ -23,7 +27,10 @@ const data: Map<string, IEntryData> = new Map([
         { name: "username", label: "username", type: "text" },
         { name: "email", label: "Email address", type: "email" },
         { name: "password", label: "password", type: "password" }
-      ]
+      ],
+      request(values: IValues): Promise<void> {
+        return Api.register(values);
+      }
     }
   ]
 ]);
@@ -31,8 +38,8 @@ const data: Map<string, IEntryData> = new Map([
 const Authentication: FC<{
   backgroundColor: string;
   title: string;
-  url: string;
-}> = ({ backgroundColor, title, url }) => {
+  callback: () => void;
+}> = ({ backgroundColor, title, callback }) => {
   const [state, setState] = useState<boolean>(true);
   return (
     <>
@@ -45,13 +52,13 @@ const Authentication: FC<{
             <Entry
               data={data.get("Login")}
               validationSchema="LoginSchema"
-              url={url}
+              callback={callback}
             />
           ) : (
             <Entry
               data={data.get("Register")}
               validationSchema="RegisterSchema"
-              url={url}
+              callback={callback}
             />
           )}
           <button onClick={() => setState(!state)}>switch</button>

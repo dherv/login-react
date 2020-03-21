@@ -10,8 +10,12 @@ import { v1 as uuidv1 } from "uuid";
 const Entry: FC<{
   data: IEntryData;
   validationSchema: string;
-  url: string;
-}> = ({ data: { initialValues, components }, validationSchema, url }) => {
+  callback: () => void;
+}> = ({
+  data: { initialValues, components, request },
+  validationSchema,
+  callback
+}) => {
   return (
     <Formik
       key={uuidv1()}
@@ -19,19 +23,10 @@ const Entry: FC<{
       initialValues={initialValues}
       validationSchema={validation.get(validationSchema)}
       onSubmit={(values, actions) => {
-        fetch(`${url}/auth/login`, {
-          method: "POST",
-          body: JSON.stringify({ ...values }),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-          .then(response => response.json())
-          .then(({ access_token }) => {
-            localStorage.setItem("token", access_token);
-            actions.setSubmitting(false);
-          })
-          .catch(error => console.error(error));
+        request(values).then(() => {
+          actions.setSubmitting(false);
+          callback();
+        });
       }}
     >
       {(props: FormikProps<IValues>) => (
