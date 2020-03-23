@@ -12,8 +12,10 @@ export default class Api {
       }
     })
       .then(response => response.json())
-      .then(({ access_token }) => {
-        return localStorage.setItem("token", access_token);
+      .then(({ access_token, id }) => {
+        localStorage.setItem("userId", id);
+        localStorage.setItem("token", access_token);
+        return;
       })
       .catch(error => console.error(error));
   }
