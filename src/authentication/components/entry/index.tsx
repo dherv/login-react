@@ -10,11 +10,13 @@ import { v1 as uuidv1 } from "uuid";
 const Entry: FC<{
   data: IEntryData;
   validationSchema: string;
+  environment: "production" | "development";
   callback: () => void;
 }> = ({
   data: { initialValues, components, request },
+  environment,
   validationSchema,
-  callback
+  callback,
 }) => {
   return (
     <Formik
@@ -23,7 +25,7 @@ const Entry: FC<{
       initialValues={initialValues}
       validationSchema={validation.get(validationSchema)}
       onSubmit={(values, actions) => {
-        request(values).then(() => {
+        request(values, environment).then(() => {
           actions.setSubmitting(false);
           callback();
         });

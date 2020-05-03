@@ -8,6 +8,7 @@ const App = () => (
     <Authentication
       title="App"
       backgroundColor="#212121"
+      environment="production"
       callback={() =>
         console.info("callback from app to redirect after login should be here")
       }

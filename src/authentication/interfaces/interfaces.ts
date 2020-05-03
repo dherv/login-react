@@ -7,7 +7,10 @@ export interface IValues {
 export interface IEntryData {
   initialValues: IValues;
   components: IInputData[];
-  request(values: any): Promise<void>;
+  request(
+    values: any,
+    environment: "production" | "development"
+  ): Promise<void>;
 }
 
 interface IInputData {

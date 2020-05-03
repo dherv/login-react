@@ -12,12 +12,15 @@ const data: Map<string, IEntryData> = new Map([
       initialValues: { username: "", password: "" },
       components: [
         { name: "username", label: "username", type: "text" },
-        { name: "password", label: "password", type: "password" }
+        { name: "password", label: "password", type: "password" },
       ],
-      request(values: IValues): Promise<void> {
-        return Api.login(values);
-      }
-    }
+      request(
+        values: IValues,
+        environment: "production" | "development"
+      ): Promise<void> {
+        return Api.login(values, environment);
+      },
+    },
   ],
   [
     "Register",
@@ -26,20 +29,24 @@ const data: Map<string, IEntryData> = new Map([
       components: [
         { name: "username", label: "username", type: "text" },
         { name: "email", label: "Email address", type: "email" },
-        { name: "password", label: "password", type: "password" }
+        { name: "password", label: "password", type: "password" },
       ],
-      request(values: IValues): Promise<void> {
-        return Api.register(values);
-      }
-    }
-  ]
+      request(
+        values: IValues,
+        environment: "production" | "development"
+      ): Promise<void> {
+        return Api.register(values, environment);
+      },
+    },
+  ],
 ]);
 
 const Authentication: FC<{
   backgroundColor: string;
+  environment: "production" | "development";
   title: string;
   callback: () => void;
-}> = ({ backgroundColor, title, callback }) => {
+}> = ({ backgroundColor, title, callback, environment }) => {
   const [state, setState] = useState<boolean>(true);
   return (
     <>
@@ -52,12 +59,14 @@ const Authentication: FC<{
             <Entry
               data={data.get("Login")}
               validationSchema="LoginSchema"
+              environment={environment}
               callback={callback}
             />
           ) : (
             <Entry
               data={data.get("Register")}
               validationSchema="RegisterSchema"
+              environment={environment}
               callback={callback}
             />
           )}
